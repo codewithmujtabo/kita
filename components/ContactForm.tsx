@@ -13,6 +13,11 @@ export default function ContactForm() {
     const email = String(data.get("email") || "");
     const message = String(data.get("message") || "");
     setBusy(true); setStatus("");
+    if (process.env.NEXT_PUBLIC_STATIC_PREVIEW === "true") {
+      setStatus("Prototype validated locally. No message was sent or saved.");
+      setBusy(false);
+      return;
+    }
     try {
       const response = await fetch("/api/inquiries", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, email, message }) });
       const result = await response.json();

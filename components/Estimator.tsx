@@ -14,6 +14,10 @@ export default function Estimator() {
   const [estimate, setEstimate] = useState(calculateEstimate(service, scope));
 
   useEffect(() => {
+    if (process.env.NEXT_PUBLIC_STATIC_PREVIEW === "true") {
+      setEstimate(calculateEstimate(service, scope));
+      return;
+    }
     let cancelled = false;
     fetch("/api/estimate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ service, scope }) })
       .then(response => { if (!response.ok) throw new Error("Estimate unavailable"); return response.json(); })
