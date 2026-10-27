@@ -126,7 +126,7 @@ Acceptance: the site feels immersive on capable devices and remains usable on sl
 - [x] Implement a deterministic estimate calculation from sample pricing rules.
 - [x] Validate inquiry and estimate inputs on the server.
 - [x] Connect the prototype form to an honest mock response. No message is sent or saved.
-- [ ] Add basic abuse controls and clear success/error states.
+- [-] Add basic abuse controls and clear success/error states. Server routes now cap JSON bodies at 8 KB and reject unsupported content types; rate limits and a real delivery path belong with production hosting.
 
 Acceptance: estimator results match configured rules, and form behavior accurately states whether an inquiry was actually sent.
 
@@ -142,8 +142,8 @@ Acceptance: no sample content appears as a real claim; prices and inquiry delive
 
 ### Phase 6 - quality and launch readiness
 
-- [ ] Check desktop/mobile layouts, browser behavior, keyboard access, and reduced motion.
-- [ ] Verify metadata, social previews, sitemap, and important search pages.
+- [-] Check desktop/mobile layouts, browser behavior, keyboard access, and reduced motion. Live Pages homepage, Work, Contact, estimator, demo form, and 390 px mobile width have been checked; broader browser and reduced-motion QA remain.
+- [-] Verify metadata, social previews, sitemap, and important search pages. Prototype pages have distinct share titles/URLs, a favicon, and a share image; sitemap and indexable metadata wait for approved real content.
 - [ ] Check performance budgets and optimize the heaviest assets and animations.
 - [ ] Test estimate edge cases and inquiry delivery end to end.
 - [ ] Set up staging, production configuration, domain, monitoring, and rollback notes.
@@ -152,7 +152,7 @@ Acceptance: the production build and key user journeys pass, and the launch conf
 
 ### Phase 7 - launch and iteration
 
-- [ ] Publish the approved site and verify the live domain and core journeys.
+- [-] Publish the approved site and verify the live domain and core journeys. A static prototype preview is live at `https://codewithmujtabo.github.io/kita/`; final content and backend launch remain.
 - [ ] Check analytics and inquiry receipt after launch.
 - [ ] Record issues and prioritize the first iteration from real visitor behavior.
 
@@ -191,3 +191,6 @@ Acceptance: the live site works, receives inquiries, and can be updated safely.
 - 2026-10-27: Audited the current prototype checklist. Found and fixed keyboard Escape behavior for the navigation menu, verified it in Chrome, and marked the frontend prototype's accessibility task complete. The 3D visual treatment is in progress; real showreel and portfolio assets remain pending.
 - 2026-10-27: Prepared a GitHub Pages static preview after the live `/kita/` URL showed the repository README. Added a `master` branch Actions workflow, `/kita` base path, static export, and local-only demo validation for the Pages build. Verified exported HTML and assets. Deployment remains pending: the repository must use **Settings → Pages → GitHub Actions**, and the workflow changes must be pushed. GitHub Pages cannot run the POST API routes; full backend hosting remains a separate later step.
 - 2026-10-27: Static export and normal build both passed. A local commit could not be created because this session has read-only access to `.git` (`index.lock: Operation not permitted`). The changed files remain in the workspace for the user to commit and push from Terminal.
+- 2026-10-27: After switching GitHub Pages to GitHub Actions and rerunning the workflow, verified the live static prototype at `https://codewithmujtabo.github.io/kita/`. The homepage hero and published Work and Contact routes load. The site is still a prototype with sample content and no server-side inquiry delivery.
+- 2026-10-27: Verified live Pages interactions: the estimator updates for mobile-app scope, the static contact form reports local validation with no message sent or saved, and the homepage fits a 390 px mobile viewport without horizontal overflow. No code changes were needed from these checks.
+- 2026-10-27: Improved page landmarks and skip-link focus, restored focus to the mobile menu button on Escape, added a favicon and 1200×630 prototype social image, and set page-specific share URLs. API routes now reject non-JSON and bodies over 8 KB. The GitHub Pages static export builds and its generated HTML references the correct `/kita/` assets. These changes are local only until committed and pushed; live Pages still serves the previous build.

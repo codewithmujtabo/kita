@@ -1,6 +1,8 @@
+import { readJsonBody } from "@/lib/readJsonBody";
+
 export async function POST(request: Request) {
-  let body: unknown;
-  try { body = await request.json(); } catch { return Response.json({ error: "Invalid JSON." }, { status: 400 }); }
+  const { body, error } = await readJsonBody(request);
+  if (error) return error;
   if (!body || typeof body !== "object") return Response.json({ error: "Invalid request." }, { status: 400 });
   const { name, email, message } = body as Record<string, unknown>;
   if (typeof name !== "string" || name.trim().length < 2 || name.length > 100 ||
